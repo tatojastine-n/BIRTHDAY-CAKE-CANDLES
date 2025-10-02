@@ -1,88 +1,54 @@
-#include <bits/stdc++.h>
+using System.CodeDom.Compiler;
+using System.Collections.Generic;
+using System.Collections;
+using System.ComponentModel;
+using System.Diagnostics.CodeAnalysis;
+using System.Globalization;
+using System.IO;
+using System.Linq;
+using System.Reflection;
+using System.Runtime.Serialization;
+using System.Text.RegularExpressions;
+using System.Text;
+using System;
 
-using namespace std;
-
-string ltrim(const string &);
-string rtrim(const string &);
-vector<string> split(const string &);
-
-/*
- * Complete the 'birthdayCakeCandles' function below.
- *
- * The function is expected to return an INTEGER.
- * The function accepts INTEGER_ARRAY candles as parameter.
- */
-
-int birthdayCakeCandles(vector<int> candles) {
-
-}
-
-int main()
+class Result
 {
-    ofstream fout(getenv("OUTPUT_PATH"));
 
-    string candles_count_temp;
-    getline(cin, candles_count_temp);
+    /*
+     * Complete the 'birthdayCakeCandles' function below.
+     *
+     * The function is expected to return an INTEGER.
+     * The function accepts INTEGER_ARRAY candles as parameter.
+     */
 
-    int candles_count = stoi(ltrim(rtrim(candles_count_temp)));
-
-    string candles_temp_temp;
-    getline(cin, candles_temp_temp);
-
-    vector<string> candles_temp = split(rtrim(candles_temp_temp));
-
-    vector<int> candles(candles_count);
-
-    for (int i = 0; i < candles_count; i++) {
-        int candles_item = stoi(candles_temp[i]);
-
-        candles[i] = candles_item;
+    public static int birthdayCakeCandles(List<int> candles)
+    {
+        if (candles == null || candles.Count == 0) return 0;
+        
+        int maxHeight = candles.Max();
+        int count = candles.Count(c => c == maxHeight);
+        
+        return count;
     }
 
-    int result = birthdayCakeCandles(candles);
-
-    fout << result << "\n";
-
-    fout.close();
-
-    return 0;
 }
 
-string ltrim(const string &str) {
-    string s(str);
+class Solution
+{
+    public static void Main(string[] args)
+    {
+        TextWriter textWriter = new StreamWriter(@System.Environment.GetEnvironmentVariable("OUTPUT_PATH"), true);
 
-    s.erase(
-        s.begin(),
-        find_if(s.begin(), s.end(), not1(ptr_fun<int, int>(isspace)))
-    );
+        int candlesCount = Convert.ToInt32(Console.ReadLine().Trim());
 
-    return s;
-}
+        List<int> candles = Console.ReadLine().TrimEnd().Split(' ').ToList().Select(candlesTemp => Convert.ToInt32(candlesTemp)).ToList();
 
-string rtrim(const string &str) {
-    string s(str);
+        int result = Result.birthdayCakeCandles(candles);
 
-    s.erase(
-        find_if(s.rbegin(), s.rend(), not1(ptr_fun<int, int>(isspace))).base(),
-        s.end()
-    );
+        textWriter.WriteLine(result);
 
-    return s;
-}
-
-vector<string> split(const string &str) {
-    vector<string> tokens;
-
-    string::size_type start = 0;
-    string::size_type end = 0;
-
-    while ((end = str.find(" ", start)) != string::npos) {
-        tokens.push_back(str.substr(start, end - start));
-
-        start = end + 1;
+        textWriter.Flush();
+        textWriter.Close();
     }
-
-    tokens.push_back(str.substr(start));
-
-    return tokens;
 }
